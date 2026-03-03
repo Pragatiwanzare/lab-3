@@ -1,0 +1,57 @@
+body {
+      font-family: Arial;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+    }
+
+    td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .delete-btn {
+      background-color: red;
+    }
+
+    .delete-btn:hover {
+      background-color: darkred;
+    }
