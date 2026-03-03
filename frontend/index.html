@@ -2,65 +2,7 @@
 <html>
 <head>
   <title>Student Management System</title>
-  <style>
-    body {
-      font-family: Arial;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    input {
-      padding: 8px;
-      margin: 5px;
-      width: 200px;
-    }
-
-    button {
-      padding: 8px 12px;
-      cursor: pointer;
-      background-color: #28a745;
-      color: white;
-      border: none;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-      background: white;
-    }
-
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #007bff;
-      color: white;
-      padding: 10px;
-    }
-
-    td {
-      padding: 10px;
-      text-align: center;
-    }
-
-    .delete-btn {
-      background-color: red;
-    }
-
-    .delete-btn:hover {
-      background-color: darkred;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -87,59 +29,7 @@
   </tbody>
 </table>
 
-<script>
-function addStudent() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const course = document.getElementById("course").value;
-
-  fetch("http://localhost:5000/students", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, email, course })
-  })
-  .then(res => res.json())
-  .then(() => {
-    loadStudents();
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("course").value = "";
-  });
-}
-
-function loadStudents() {
-  fetch("http://localhost:5000/students")
-    .then(res => res.json())
-    .then(data => {
-      const table = document.getElementById("studentTable");
-      table.innerHTML = "";
-
-      data.forEach(student => {
-        table.innerHTML += `
-          <tr>
-            <td>${student.id}</td>
-            <td>${student.name}</td>
-            <td>${student.email}</td>
-            <td>${student.course}</td>
-            <td>
-              <button class="delete-btn" onclick="deleteStudent(${student.id})">
-                Delete
-              </button>
-            </td>
-          </tr>
-        `;
-      });
-    });
-}
-
-function deleteStudent(id) {
-  fetch(`http://localhost:5000/students/${id}`, {
-    method: "DELETE"
-  }).then(() => loadStudents());
-}
-
-loadStudents();
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
