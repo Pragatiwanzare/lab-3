@@ -24,7 +24,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo "Deploying ${APP_NAME} to Production..."
+                echo "Deploying ${APP_NAME}..."
             }
         }
     }
