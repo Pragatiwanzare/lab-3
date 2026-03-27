@@ -9,13 +9,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'npm install'   // for Node.js project
+                bat 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
 
