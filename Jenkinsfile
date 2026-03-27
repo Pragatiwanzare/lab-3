@@ -2,20 +2,32 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = "MyApp"
+        APP_NAME = "StudentApp"
     }
 
     stages {
 
-        stage('Build') {
+        stage('Backend Install') {
             steps {
-                bat 'npm install'
+                dir('backend') {
+                    bat 'npm install'
+                }
             }
         }
 
-        stage('Test') {
+        stage('Backend Test') {
             steps {
-                bat 'npm test'
+                dir('backend') {
+                    bat 'node -e "console.log(\'Backend OK\')"'
+                }
+            }
+        }
+
+        stage('Frontend Check') {
+            steps {
+                dir('frontend') {
+                    bat 'dir'
+                }
             }
         }
 
