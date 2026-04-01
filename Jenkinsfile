@@ -1,70 +1,45 @@
 pipeline {
     agent any
 
-    environment {
-        BACKEND_IMAGE = "sms-backend"
-        FRONTEND_IMAGE = "sms-frontend"
-        BACKEND_CONTAINER = "sms-backend-container"
-        FRONTEND_CONTAINER = "sms-frontend-container"
-        BACKEND_PORT = "5000"
-        FRONTEND_PORT = "8080"
-        GIT_URL = "https://github.com/Pragatiwanzare/lab-3.git"
-    }
-
     stages {
-        stage('Checkout Code') {
+
+        stage('Clone Repository') {
             steps {
-                git branch: 'main', url: "${GIT_URL}"
+                git 'https://github.com/Pragatiwanzare/lab-3.git'
             }
         }
 
-        stage('Backend Build') {
+        stage('Stop Old Containers') {
             steps {
-                dir('backend') {
-                    echo "Installing backend dependencies..."
-                    sh 'npm install'
-                }
+                sh 'docker-compose down || true'
             }
         }
 
-        stage('Backend Docker Build') {
+        stage('Remove Old Images') {
             steps {
-                dir('backend') {
-                    sh "docker build -t ${BACKEND_IMAGE}:latest ."
-                }
+                sh 'docker rmi lab-3-backend lab-3-frontend || true'
             }
         }
 
-        stage('Run Backend Container') {
+        stage('Build & Run Containers') {
             steps {
-                sh "docker rm -f ${BACKEND_CONTAINER} || true"
-                sh "docker run -d --name ${BACKEND_CONTAINER} -p ${BACKEND_PORT}:5000 ${BACKEND_IMAGE}:latest"
+                sh 'docker-compose up -d --build'
             }
         }
 
-        stage('Frontend Docker Build') {
+        stage('Check Running Containers') {
             steps {
-                dir('frontend') {
-                    sh "docker build -t ${FRONTEND_IMAGE}:latest ."
-                }
-            }
-        }
-
-        stage('Run Frontend Container') {
-            steps {
-                sh "docker rm -f ${FRONTEND_CONTAINER} || true"
-                sh "docker run -d --name ${FRONTEND_CONTAINER} -p ${FRONTEND_PORT}:80 ${FRONTEND_IMAGE}:latest"
+                sh 'docker ps'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Backend running on http://localhost:${BACKEND_PORT}"
-            echo "✅ Frontend running on http://localhost:${FRONTEND_PORT}"
+            echo '✅ Deployment Successful! App running at http://localhost:3000'
         }
         failure {
-            echo "❌ Build or Deployment Failed!"
+            echo '❌ Deployment Failed! Check logs.'
         }
     }
 }
