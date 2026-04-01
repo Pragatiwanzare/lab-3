@@ -3,12 +3,17 @@ pipeline {
 
     stages {
 
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/Pragatiwanzare/lab-3.git'
             }
         }
-
 
         stage('Build & Run Containers') {
             steps {
@@ -22,11 +27,6 @@ pipeline {
             }
         }
     }
-    stage('Clean Workspace') {
-    steps {
-        deleteDir()
-    }
-}
 
     post {
         success {
