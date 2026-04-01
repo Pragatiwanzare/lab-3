@@ -9,17 +9,6 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
-            steps {
-                sh 'docker-compose down || true'
-            }
-        }
-
-        stage('Remove Old Images') {
-            steps {
-                sh 'docker rmi lab-3-backend lab-3-frontend || true'
-            }
-        }
 
         stage('Build & Run Containers') {
             steps {
