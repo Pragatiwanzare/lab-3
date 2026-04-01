@@ -1,5 +1,11 @@
-FROM httpd:2.4
+# frontend/Dockerfile
+FROM httpd:alpine
 
-COPY frontend/ /usr/local/apache2/htdocs/
+# Remove default html files
+RUN rm -rf /usr/local/apache2/htdocs/*
 
+# Copy frontend files
+COPY . /usr/local/apache2/htdocs/
+
+# Expose frontend port
 EXPOSE 80
