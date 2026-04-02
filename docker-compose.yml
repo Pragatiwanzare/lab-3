@@ -7,7 +7,6 @@ services:
     container_name: backend
     ports:
       - "5000:5000"
-    restart: always
 
   frontend:
     build: ./frontend
@@ -16,4 +15,3 @@ services:
       - "3000:80"
     depends_on:
       - backend
-    restart: always
