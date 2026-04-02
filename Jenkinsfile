@@ -9,12 +9,6 @@ pipeline {
             }
         }
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Pragatiwanzare/lab-3.git'
-            }
-        }
-
         stage('Build & Run Containers') {
             steps {
                 sh 'docker-compose up -d --build'
@@ -36,4 +30,4 @@ pipeline {
             echo '❌ Deployment Failed! Check logs.'
         }
     }
-}
+}ad
