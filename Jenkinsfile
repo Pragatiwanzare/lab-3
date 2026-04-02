@@ -1,33 +1,15 @@
-pipeline {
-    agent any
+node {
 
-    stages {
-
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-
-        stage('Build & Run Containers') {
-            steps {
-                sh 'docker-compose up -d --build'
-            }
-        }
-
-        stage('Check Running Containers') {
-            steps {
-                sh 'docker ps'
-            }
-        }
+    stage('Clean Workspace') {
+        deleteDir()
     }
 
-    post {
-        success {
-            echo '✅ Deployment Successful! App running at http://localhost:3000'
-        }
-        failure {
-            echo '❌ Deployment Failed! Check logs.'
-        }
+    stage('Build & Run Containers') {
+        sh 'docker-compose up -d --build'
     }
-}ad
+
+    stage('Check Running Containers') {
+        sh 'docker ps'
+    }
+
+}
