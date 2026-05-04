@@ -5,9 +5,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Data storage
 let students = [];
 
-// GET all students
+// ROOT ROUTE
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+// GET all students  ✅ (YOU WERE MISSING THIS)
 app.get("/students", (req, res) => {
   res.json(students);
 });
@@ -34,6 +40,7 @@ app.delete("/students/:id", (req, res) => {
   res.json({ message: "Student deleted successfully" });
 });
 
+// START SERVER (keep this LAST)
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
 });
